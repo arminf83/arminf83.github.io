@@ -1,0 +1,12 @@
+{{ section.content | safe }}
+		<div class="columns">
+			{%- for page in section.pages %}
+			<div>
+				<h2>{{ page.title }}</h2>
+				{% for icon in page.extra.icons | default(value=[]) -%}
+				<i class="{{ icon }} fa-3x"></i>
+				{%- endfor %}
+				{{ page.content | safe }}
+			</div>
+		{%- endfor %}
+		</div>

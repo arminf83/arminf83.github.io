@@ -1,0 +1,127 @@
+{% extends "base.html" %}
+
+{% block content %}
+
+<div id="particles" class="fullflex"></div>
+
+<div id="landing" class="fullflex">
+    <div id="splash">
+
+        <div id="lang">
+            {% for lang_code, tr in config.languages %}
+                {% if config.default_language != lang_code %}
+                    {% set url = config.base_url ~ "/" ~ lang_code %}
+                {% endif %}
+
+                {% if not loop.first %}| {% endif %}
+
+                <a href="{{ url | default(value=config.base_url | safe) }}">
+                    {{ tr.translations.flag | default(value=lang_code) }}
+                </a>
+            {% endfor %}
+        </div>
+
+        <h1 id="name">
+            {{ config.extra.name.first | title }}
+            <em>{{ config.extra.name.last | upper }}</em>
+        </h1>
+
+        {% if section.extra.roles %}
+        <div id="roles">
+            <p>
+                {% for role in section.extra.roles %}
+                    <span>{{ role }}</span><br>
+                {% endfor %}
+            </p>
+        </div>
+        {% endif %}
+
+        {% if config.extra.links %}
+        <div id="links">
+            <p>
+                {% for link in config.extra.links %}
+                    <a aria-label="external link" href="{{ link.url }}">
+                        <i class="{{ link.icon }} fa-2x"></i>
+                    </a>
+                {% endfor %}
+            </p>
+        </div>
+        {% endif %}
+
+        {% if config.extra.sections %}
+        <div id="internal_links">
+            <p>
+                {% for section_name in config.extra.sections %}
+                    {% set target_section = get_section(path=section_name ~ "/_index.md") %}
+
+                    <a aria-label="go to {{ section_name }} section"
+                       href="#{{ section_name }}">
+                        {{ target_section.title | default(value="Untitled Section") }}
+                    </a>
+                {% endfor %}
+            </p>
+        </div>
+        {% endif %}
+
+    </div>
+</div>
+
+{% for section_name in config.extra.sections | default(value=[]) %}
+
+    {% set target_section = get_section(path=section_name ~ "/_index.md") %}
+
+    <div id="{{ section_name }}" class="fullflex">
+
+        <div class="arrows">
+
+            <div class="down">
+                <a aria-label="Go to section"
+                   href="#{{ section_name }}">
+                    <i class="fa-solid fa-chevron-down fa-2x"></i>
+                </a>
+            </div>
+
+            <div class="up">
+                <a aria-label="Go to landing section"
+                   href="#landing">
+                    <i class="fa-solid fa-chevron-up fa-2x"></i>
+                </a>
+            </div>
+
+        </div>
+
+        <div class="card">
+
+            <h1>
+                {{ target_section.title | default(value="Untitled Section") }}
+            </h1>
+
+            {% set card_type = target_section.extra.card_type | default(value="simple") %}
+
+            {% if card_type == "simple" %}
+
+                {% set section = target_section %}
+                {% include "cards/simple.html" %}
+
+            {% elif card_type == "columns" %}
+
+                {% set section = target_section %}
+                {% include "cards/columns.html" %}
+
+            {% elif card_type == "list" %}
+
+                {% set section = target_section %}
+                {% include "cards/list.html" %}
+
+            {% else %}
+
+                <p>Unknown Card Type 🤷</p>
+
+            {% endif %}
+
+        </div>
+    </div>
+
+{% endfor %}
+
+{% endblock content %}

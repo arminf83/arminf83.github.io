@@ -1,0 +1,29 @@
+{% set author = config.extra.name.first ~ " " ~ config.extra.name.last | striptags %}
+
+<!DOCTYPE html>
+<html lang="{{ lang }}">
+
+<head>
+	<meta charset="utf-8">
+	<meta name="author" content="{{ author }}">
+	<meta name="description" content="{{ author }}'s landing page">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<link rel="icon" href="{{ config.base_url }}/favicon.svg">
+	<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/modern-normalize/modern-normalize.min.css">
+	<link rel="stylesheet" type="text/css" href="{{ config.base_url }}/style.css">
+	<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Roboto&display=swap">
+	<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.3.0/css/all.min.css" />
+	<title>{{ author }}</title>
+</head>
+
+<body>
+{% block content %}{% endblock %}
+
+<script src="https://cdn.jsdelivr.net/particles.js/2.0.0/particles.min.js"></script>
+<script>
+	particlesJS.load('particles', '{{ config.base_url | safe }}/particles.json', null);
+</script>
+
+</body>
+
+</html>

@@ -1,0 +1,20 @@
+name = "HayFlow"
+description = "HayFlow is a minimal and completely modular Zola theme for anyone wishing to have their own landing page."
+license = "CC-BY-SA 4.0"
+homepage = "https://gitlab.com/cyril-marpaud/hayflow"
+# The minimum version of Zola required
+min_version = "0.4.0"
+# An optional live demo URL
+demo = "https://cyril-marpaud.gitlab.io"
+
+# Any variable there can be overridden in the end user `config.toml`
+# You don't need to prefix variables by the theme name but as this will
+# be merged with user data, some kind of prefix or nesting is preferable
+# Use snake_casing to be consistent with the rest of Zola
+[extra]
+name = { first = "John", last = "Doe" }
+
+# The theme author info: you!
+[author]
+name = "Cyril Marpaud"
+homepage = "https://cyril-marpaud.gitlab.io"

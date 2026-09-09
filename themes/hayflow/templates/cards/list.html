@@ -1,0 +1,49 @@
+{{ section.content | safe }}
+
+<div class="projects-grid">
+    {% for page in section.pages %}
+    <article class="project-card">
+
+        <div class="project-header">
+            <h2>{{ page.title }}</h2>
+
+            {% if page.extra.link %}
+            <a
+                class="project-github"
+                href="{{ page.extra.link }}"
+                target="_blank"
+                rel="noopener noreferrer"
+                aria-label="View {{ page.title }} on GitHub"
+            >
+                <i class="fa-brands fa-github"></i>
+            </a>
+            {% endif %}
+        </div>
+
+        <div class="project-description">
+            {{ page.content | safe }}
+        </div>
+
+        {% if page.extra.technologies %}
+        <div class="project-tech">
+            {% for tech in page.extra.technologies %}
+            <span>{{ tech }}</span>
+            {% endfor %}
+        </div>
+        {% endif %}
+
+        {% if page.extra.link %}
+        <a
+            class="project-link"
+            href="{{ page.extra.link }}"
+            target="_blank"
+            rel="noopener noreferrer"
+        >
+            View Project
+            <i class="fa-solid fa-arrow-up-right-from-square"></i>
+        </a>
+        {% endif %}
+
+    </article>
+    {% endfor %}
+</div>

@@ -1,0 +1,45 @@
+{% macro card(section) -%}
+{% set section_name = macro::get_section_name(section=section) %}
+<div id="{{ section_name }}" class="fullflex">
+	<div class="arrows">
+		<div class="down">
+			<a aria-label="Go to {{ section_name }} section" href="#{{ section_name }}"><i class="fa-solid fa-chevron-down fa-2x"></i></a>
+		</div>
+		<div class="up">
+			<a aria-label="Go to landing section" href="#landing"><i class="fa-solid fa-chevron-up fa-2x"></i></a>
+		</div>
+	</div>
+
+	<div class="card">
+		<h1>{{ macro::get_section_title(section=section) }}</h1>
+		{% set card_type = section.extra.card_type | default(value="simple") -%}
+		{% if card_type == "simple" -%}
+		{% include "cards/simple.html" -%}
+		{% elif card_type == "columns" -%}
+		{% include "cards/columns.html" -%}
+		{% elif card_type == "list" -%}
+		{% include "cards/list.html" -%}
+		{% else -%}
+		<p>Unknown Card Type 🤷</p>
+		{%- endif %}
+	</div>
+</div>
+{%- endmacro %}
+
+
+
+{% macro format_name(name) -%}
+{{ config.extra.name.first | title }} <em>{{ config.extra.name.last | upper }}</em>
+{%- endmacro %}
+
+
+
+{% macro get_section_name(section) -%}
+{{ section.path | replace(from="/", to="") }}
+{%- endmacro %}
+
+
+
+{% macro get_section_title(section) -%}
+{{ section.title | default(value="Untitled Section") }}
+{%- endmacro %}

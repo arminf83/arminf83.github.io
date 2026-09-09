@@ -1,0 +1,87 @@
+{{ section.content | safe }}
+
+<div class="blog-grid">
+    {% for page in section.pages %}
+    <article class="blog-card">
+
+        <h2 class="blog-card-title">
+            <a href="{{ page.permalink }}">{{ page.title }}</a>
+        </h2>
+
+        <div class="blog-card-excerpt">
+            {% if page.summary %}
+                {{ page.summary | safe }}
+            {% else %}
+                {{ page.content | striptags | truncate(length=180) }}
+            {% endif %}
+        </div>
+
+        {% if page.extra.technologies %}
+        <div class="blog-card-tech">
+            {% for tech in page.extra.technologies %}
+            <span>{{ tech }}</span>
+            {% endfor %}
+        </div>
+        {% endif %}
+
+        <a class="blog-card-readmore" href="{{ page.permalink }}">
+            بیشتر بخوانید <i class="fa-solid fa-arrow-left"></i>
+        </a>
+
+    </article>
+    {% endfor %}
+</div>
+
+<style>
+    .blog-grid {
+        display: grid;
+        grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+        gap: 20px;
+    }
+    .blog-card {
+        background: rgba(255,255,255,0.03);
+        border: 1px solid rgba(160,100,255,0.2);
+        border-radius: 12px;
+        padding: 24px;
+        text-align: right;
+        direction: rtl;
+        display: flex;
+        flex-direction: column;
+    }
+    .blog-card-title a {
+        color: #fff;
+        text-decoration: none;
+        font-size: 1.2rem;
+    }
+    .blog-card-title a:hover { color: #a06fff; }
+    .blog-card-excerpt {
+        color: #b8b8c0;
+        font-size: 0.9rem;
+        line-height: 1.8;
+        margin: 12px 0;
+        flex-grow: 1;
+    }
+    .blog-card-tech {
+        display: flex;
+        flex-wrap: wrap;
+        gap: 6px;
+        margin-bottom: 14px;
+    }
+    .blog-card-tech span {
+        background: rgba(160,100,255,0.12);
+        border: 1px solid rgba(160,100,255,0.3);
+        color: #c9a8ff;
+        padding: 3px 10px;
+        border-radius: 20px;
+        font-size: 0.75rem;
+    }
+    .blog-card-readmore {
+        color: #a06fff;
+        text-decoration: none;
+        font-size: 0.9rem;
+        display: inline-flex;
+        align-items: center;
+        gap: 6px;
+    }
+    .blog-card-readmore:hover { opacity: 0.7; }
+</style>

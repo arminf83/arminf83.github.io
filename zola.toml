@@ -1,0 +1,35 @@
+# The URL the site will be built for
+base_url = "https://arminf83.github.io"
+
+# The site theme
+theme = "hayflow"
+
+# Whether to automatically compile all Sass files in the sass directory
+compile_sass = true
+
+# Whether to build a search index
+build_search_index = true
+
+[markdown]
+
+[markdown.highlighting]
+theme = "catppuccin-mocha"
+[extra]
+
+name = { first = "Armin", last = "Fazely" }
+
+links = [
+    { url = "https://github.com/arminf83", icon = "fa-brands fa-github" },
+    { url = "https://www.linkedin.com/in/armin-fazely-ab21042b3/", icon = "fa-brands fa-linkedin" },
+    { url = "mailto:arminfazely83@gmail.com", icon = "fa-solid fa-envelope" },
+    { url = "tel:+989300195150" , icon = "fa-solid fa-phone" },
+    { url = "https://t.me/arminhimselff" , icon = "fa-brands fa-telegram" },
+]
+
+sections = [
+    "about",
+    "skills",
+    "projects",
+    "experience",
+    "blog"
+]

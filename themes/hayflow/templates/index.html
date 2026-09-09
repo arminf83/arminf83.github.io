@@ -52,7 +52,13 @@
         <div id="internal_links">
             <p>
                 {% for section_name in config.extra.sections %}
-                    {% set target_section = get_section(path=section_name ~ "/_index.md") %}
+                    {% set target_path = section_name ~ "/_index.md" %}
+
+                    {% if lang == "fa" %}
+                        {% set target_path = "fa/" ~ target_path %}
+                    {% endif %}
+
+                    {% set target_section = get_section(path=target_path) %}
 
                     <a aria-label="go to {{ section_name }} section"
                        href="#{{ section_name }}">

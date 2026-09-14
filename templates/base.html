@@ -1,0 +1,72 @@
+{% set author = config.extra.name.first ~ " " ~ config.extra.name.last | striptags %}
+
+<!DOCTYPE html>
+<html lang="{{ lang }}">
+
+<head>
+	<meta charset="utf-8">
+	<meta name="author" content="{{ author }}">
+	<meta name="description" content="{{ author }}'s landing page">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<link rel="icon" href="{{ config.base_url }}/favicon.svg">
+	<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/modern-normalize/modern-normalize.min.css">
+	<link rel="stylesheet" type="text/css" href="{{ config.base_url }}/style.css">
+	<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Roboto&display=swap">
+	<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.3.0/css/all.min.css" />
+	<title>{{ author }}</title>
+	<script>
+		(function () {
+			var saved = localStorage.getItem('theme');
+			document.documentElement.setAttribute('data-theme', saved || 'dark');
+		})();
+	</script>
+</head>
+
+<body>
+{% block content %}{% endblock %}
+
+<div id="lang-switcher">
+	{% if lang == "fa" %}
+		<a href="{{ config.base_url }}/" class="lang-btn" aria-label="Switch to English">EN</a>
+	{% else %}
+		<a href="{{ config.base_url }}/fa/" class="lang-btn" aria-label="Switch to Persian">FA</a>
+	{% endif %}
+</div>
+
+<div id="theme-switcher">
+	<button class="theme-btn" id="theme-toggle" aria-label="Toggle light/dark mode">
+		<i class="fa-solid fa-moon"></i>
+	</button>
+</div>
+
+<script src="https://cdn.jsdelivr.net/particles.js/2.0.0/particles.min.js"></script>
+<script>
+	function loadParticles() {
+		var theme = document.documentElement.getAttribute('data-theme');
+		var file = theme === 'light' ? 'particles-light.json' : 'particles-dark.json';
+		particlesJS.load('particles', '{{ config.base_url | safe }}/' + file, null);
+	}
+	loadParticles();
+
+	var themeToggle = document.getElementById('theme-toggle');
+	var themeIcon = themeToggle.querySelector('i');
+
+	function updateIcon() {
+		var current = document.documentElement.getAttribute('data-theme');
+		themeIcon.className = current === 'light' ? 'fa-solid fa-sun' : 'fa-solid fa-moon';
+	}
+	updateIcon();
+
+	themeToggle.addEventListener('click', function () {
+		var current = document.documentElement.getAttribute('data-theme');
+		var next = current === 'light' ? 'dark' : 'light';
+		document.documentElement.setAttribute('data-theme', next);
+		localStorage.setItem('theme', next);
+		updateIcon();
+		loadParticles();
+	});
+</script>
+
+</body>
+
+</html>

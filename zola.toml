@@ -1,5 +1,5 @@
 # The URL the site will be built for
-base_url = "https://arminf83.github.io"
+base_url = "https://arminfazely.ir"
 
 # The site theme
 theme = "hayflow"

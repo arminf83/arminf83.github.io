@@ -53,11 +53,16 @@ body::-webkit-scrollbar {
 	display: none;
 }
 
+/* ===== Full section (مهم‌ترین تغییر) ===== */
 .fullflex {
 	display: flex;
 	flex-direction: column;
+	justify-content: center;   /* کارت‌ها عمودی وسط می‌شن */
+	align-items: center;
 	width: 100%;
 	min-height: 100vh;
+	position: relative;
+	padding: 2rem 0;
 }
 
 #particles {
@@ -167,17 +172,39 @@ body::-webkit-scrollbar {
 
 @media (min-width: 600px) { #internal_links p a { font-size: 1.4em; } }
 
+/* ===== Arrows (اصلاح‌شده) ===== */
+/* ===== Arrows (نسخه نهایی و درست) ===== */
 .arrows {
 	position: absolute;
+	inset: 0;                 /* کل سکشن رو می‌پوشونه */
 	width: 100%;
-	text-align: center;
-	translate: 0 -50%;
+	height: 100%;
+	pointer-events: none;
+	z-index: 10;
 }
 
-.arrows .down { --factor: -1; }
+.arrows .up {
+	position: absolute;
+	top: 1.2rem;
+	left: 0;
+	right: 0;
+	text-align: center;
+}
+
+.arrows .down {
+	position: absolute;
+	bottom: 1.2rem;
+	left: 0;
+	right: 0;
+	text-align: center;
+}
+
+.arrows a {
+	pointer-events: auto;
+}
 
 .arrows i {
-	padding: 1%;
+	padding: 0.6rem;
 	color: var(--accent);
 	animation-duration: 1s;
 	animation-name: arrow_anim;
@@ -187,15 +214,14 @@ body::-webkit-scrollbar {
 
 @keyframes arrow_anim {
 	50% {
-		transform: scale(1.2) translateY(calc(var(--factor, 1) * 50%));
+		transform: scale(1.2) translateY(calc(var(--factor, 1) * 8px));
 		color: var(--bg);
 	}
 }
-
 /* ===== Card ===== */
 .card {
 	overflow: auto;
-	margin: 1.5rem auto;
+	margin: 0 auto;
 	padding: 1.5em 1.2em;
 	width: 92%;
 	max-width: 720px;
@@ -223,8 +249,6 @@ body::-webkit-scrollbar {
 	line-height: 1.6em;
 	margin-bottom: 1.3em;
 	transition: var(--transition-duration);
-	text-align: left;
-	text-align-last: left;
 }
 
 .card a { transition: var(--transition-duration); }

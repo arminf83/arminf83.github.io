@@ -59,23 +59,25 @@
     {% set target_section = get_section(path=section_name ~ "/_index.md", lang=lang) %}
     <div id="{{ section_name }}" class="fullflex">
         <div class="arrows">
-            <div class="down">
-                <a aria-label="Go to section" href="#{{ section_name }}">
-                    <i class="fa-solid fa-chevron-down fa-2x"></i>
-                </a>
-            </div>
             <div class="up">
-                <a aria-label="Go to landing section" href="#landing">
+                <a aria-label="Go to landing" href="#landing">
                     <i class="fa-solid fa-chevron-up fa-2x"></i>
                 </a>
             </div>
+            <div class="down">
+                <a aria-label="Go to next section" href="#{{ section_name }}">
+                    <i class="fa-solid fa-chevron-down fa-2x" style="--factor: -1;"></i>
+                </a>
+            </div>
         </div>
+
         <div class="card">
             <h1>
                 {{ target_section.title | default(value=section_name | title) }}
             </h1>
 
             {% set card_type = target_section.extra.card_type | default(value="simple") %}
+
             {% if card_type == "simple" %}
                 {% set section = target_section %}
                 {% include "cards/simple.html" %}
